@@ -1,4 +1,4 @@
-This project automates the testing of an e-commerce website. The test cases cover various functionalities such as login, applying filters, adding products to the cart, checkout, and logout.
+This project automates the testing of an e-commerce website by using java selenium. The test cases cover various functionalities such as login, applying filters, adding products to the cart, checkout, and logout.
 
 TestCase 1: Verify Login Functionality, This test case verifies that the login functionality works correctly.
 
