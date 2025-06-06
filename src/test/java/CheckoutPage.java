@@ -1,62 +1,40 @@
-import java.util.List;
+package Practice;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
-import org.openqa.selenium.support.ui.Select;
 
 public class CheckoutPage{
 	EdgeDriver driver;
-	String url="https://www.saucedemo.com/cart.html";
-	
-	public CheckoutPage(EdgeDriver driver){
-		this.driver=driver;
+	String URL="https://saucedemo.com/cart.html";
+public CheckoutPage(EdgeDriver driver){
+	this.driver=driver;
+}
+public void navigateToCart() {
+	WebElement cart =this.driver.findElement(By.xpath("//a[@class='shopping_cart_link']"));
+	cart.click();
+}
+public boolean performCheckout(String firstname,String lastname,String zipcode) throws InterruptedException {
+	WebElement checkoutbtn=this.driver.findElement(By.id("checkout"));
+	checkoutbtn.click();
+	WebElement firstname1=this.driver.findElement(By.id("first-name"));
+	firstname1.sendKeys(firstname);
+	WebElement lastname1=this.driver.findElement(By.id("last-name"));
+	lastname1.sendKeys(lastname);
+	WebElement zipcode1=this.driver.findElement(By.id("postal-code"));
+	zipcode1.sendKeys(zipcode);
+	Thread.sleep(1000);
+	WebElement continuebtn=this.driver.findElement(By.id("continue"));
+	continuebtn.click();
+	Thread.sleep(1000);
+	WebElement finishbtn=this.driver.findElement(By.id("finish"));
+	finishbtn.click();
+	Thread.sleep(1000);
+	WebElement msg=this.driver.findElement(By.xpath("//h2[text()='Thank you for your order!']"));
+	String textmsg=msg.getText();
+	if(textmsg.equals("Thank you for your order!")) {
+		return true;
 	}
-	
-	
-	
-	public void navigateToCartPage() {
-		this.driver.findElement(By.xpath("//a[@class='shopping_cart_link']")).click();
-        if (!this.driver.getCurrentUrl().equals(this.url)) {
-            this.driver.get(this.url);
-        }
-    }
-	
-    public Boolean PerformCheckoutFunctionality(String firstName,String lastName,String zipCode) throws InterruptedException {
-    	try {
-    		WebElement checkoutBtn=this.driver.findElement(By.id("checkout"));
-        	checkoutBtn.click();
-        	
-        	WebElement firstName_TxtBox=this.driver.findElement(By.id("first-name"));
-        	firstName_TxtBox.sendKeys(firstName);
-        	
-        	WebElement lastName_TxtBox=this.driver.findElement(By.id("last-name"));
-        	lastName_TxtBox.sendKeys(lastName);
-        	
-        	WebElement zipCode_TxtBox=this.driver.findElement(By.id("postal-code"));
-        	zipCode_TxtBox.sendKeys(zipCode);
-        	
-        	Thread.sleep(1000);
-        	WebElement continueBtn=this.driver.findElement(By.id("continue"));
-        	continueBtn.click();
-        	
-        	Thread.sleep(1000);
-        	WebElement finishBtn=this.driver.findElement(By.id("finish"));
-        	finishBtn.click();
-        	
-        	Thread.sleep(1000);
-        	
-        	WebElement message=this.driver.findElement(By.xpath("//h2[text()='Thank you for your order!']"));
-        	String textMsg=message.getText();
-        	if(textMsg.equals("Thank you for your order!")) {
-        		return true;
-        	}
-        	return false;
-    	}
-    	catch (Exception e) {
-    	    e.printStackTrace();
-    	}
-    	return false;
-    }
+	return false;
+}
 }
